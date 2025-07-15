@@ -1,141 +1,258 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Generator - Website Katalog Fashion</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generator Prompt Katalog Fashion</title>
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    textarea { white-space: pre-wrap; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #334155;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border-radius: 0.5rem;
+      border: 1px solid #cbd5e1;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .btn-primary {
+      background-color: #6366f1;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background-color: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .prompt-output {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      appearance: none;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid #94a3b8;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+    }
+
+    .checkbox-group input[type="checkbox"]:checked {
+      background-color: #6366f1;
+      border-color: #6366f1;
+    }
+
+    .checkbox-group input[type="checkbox"]:checked::after {
+      content: '✔';
+      color: white;
+      font-size: 0.8rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .checkbox-group label {
+      margin-left: 0.5rem;
+      cursor: pointer;
+      color: #334155;
+    }
   </style>
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-    <h2 class="text-2xl font-bold mb-4 text-center">Form Generator Katalog Fashion</h2>
-    <form id="fashionForm" class="space-y-4">
+
+<body class="p-4 sm:p-8 md:p-12 lg:p-16">
+  <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg">
+    <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8">Generator Prompt Website Katalog Fashion</h1>
+
+    <form id="promptForm" class="space-y-6">
+      <!-- Nama Produk -->
       <div class="form-group">
-        <label class="block font-semibold">Nama Produk:</label>
-        <input type="text" name="namaProduk" class="w-full border rounded p-2" required>
+        <label for="namaProduk" class="block text-sm mb-2">Nama Produk:</label>
+        <input type="text" id="namaProduk" name="namaProduk" placeholder="Misal: Gaun Malam Elegan" />
       </div>
 
+      <!-- Kategori Produk -->
       <div class="form-group">
-        <label class="block font-semibold">Kategori Produk:</label>
-        <select name="kategoriProduk" class="w-full border rounded p-2" required>
-          <option disabled selected>Pilih kategori</option>
-          <option>Atasan</option>
-          <option>Celana</option>
-          <option>Rok</option>
-          <option>Dress</option>
-          <option>Outer</option>
-          <option>Aksesoris</option>
+        <label for="kategoriProduk" class="block text-sm mb-2">Kategori Produk:</label>
+        <select id="kategoriProduk" name="kategoriProduk">
+          <option value="">Pilih Kategori</option>
+          <option value="Atasan">Atasan</option>
+          <option value="Celana">Celana</option>
+          <option value="Rok">Rok</option>
+          <option value="Dress">Dress</option>
+          <option value="Outer">Outer</option>
+          <option value="Aksesoris">Aksesoris</option>
         </select>
       </div>
 
+      <!-- Bahan -->
       <div class="form-group">
-        <label class="block font-semibold">Bahan:</label>
-        <input type="text" name="bahan" class="w-full border rounded p-2">
+        <label for="bahan" class="block text-sm mb-2">Bahan:</label>
+        <input type="text" id="bahan" name="bahan" placeholder="Misal: Katun Premium, Sutra Halus" />
       </div>
 
+      <!-- Ukuran -->
       <div class="form-group">
-        <label class="block font-semibold">Ukuran yang tersedia:</label>
-        <input type="text" name="ukuran" class="w-full border rounded p-2">
+        <label for="ukuranTersedia" class="block text-sm mb-2">Ukuran yang tersedia (pisahkan dengan koma):</label>
+        <input type="text" id="ukuranTersedia" name="ukuranTersedia" placeholder="Misal: S, M, L, XL" />
       </div>
 
+      <!-- Warna -->
       <div class="form-group">
-        <label class="block font-semibold">Warna yang tersedia:</label>
-        <input type="text" name="warna" class="w-full border rounded p-2">
+        <label for="warnaTersedia" class="block text-sm mb-2">Warna yang tersedia (pisahkan dengan koma):</label>
+        <input type="text" id="warnaTersedia" name="warnaTersedia" placeholder="Misal: Hitam, Merah Marun, Biru Navy" />
       </div>
 
+      <!-- Harga -->
       <div class="form-group">
-        <label class="block font-semibold">Harga Produk:</label>
-        <input type="text" name="harga" class="w-full border rounded p-2">
+        <label for="hargaProduk" class="block text-sm mb-2">Harga Produk:</label>
+        <input type="text" id="hargaProduk" name="hargaProduk" placeholder="Misal: Rp 250.000" />
       </div>
 
+      <!-- Deskripsi -->
       <div class="form-group">
-        <label class="block font-semibold">Deskripsi Singkat / Keunggulan Produk:</label>
-        <textarea name="deskripsi" class="w-full border rounded p-2"></textarea>
+        <label for="deskripsiProduk" class="block text-sm mb-2">Deskripsi Singkat / Keunggulan Produk:</label>
+        <textarea id="deskripsiProduk" name="deskripsiProduk" rows="4" placeholder="Misal: Gaun ini didesain dengan potongan A-line yang elegan..."></textarea>
       </div>
 
+      <!-- Gaya Bahasa -->
       <div class="form-group">
-        <label class="block font-semibold">Gaya Bahasa Katalog:</label>
-        <select name="gayaBahasa" class="w-full border rounded p-2">
-          <option disabled selected>Pilih gaya bahasa</option>
-          <option>Formal</option>
-          <option>Persuasif</option>
-          <option>Trendy Gen Z</option>
-          <option>Elegan</option>
+        <label for="gayaBahasa" class="block text-sm mb-2">Gaya Bahasa Katalog:</label>
+        <select id="gayaBahasa" name="gayaBahasa">
+          <option value="">Pilih Gaya Bahasa</option>
+          <option value="Formal">Formal</option>
+          <option value="Persuasif">Persuasif</option>
+          <option value="Trendy Gen Z">Trendy Gen Z</option>
+          <option value="Elegan">Elegan</option>
         </select>
       </div>
 
+      <!-- Foto Produk -->
       <div class="form-group">
-        <label class="block font-semibold">Foto Produk (Link Google Drive):</label>
-        <input type="text" name="foto" class="w-full border rounded p-2" placeholder="https://drive.google.com/file/d/ID/view">
+        <label for="fotoProdukLink" class="block text-sm mb-2">Foto Produk (Link Google Drive):</label>
+        <input type="text" id="fotoProdukLink" name="fotoProdukLink" placeholder="Tempel link shareable Google Drive Anda di sini" />
+        <p class="text-xs text-gray-500 mt-1">Contoh: https://drive.google.com/file/d/ID/view?usp=sharing</p>
       </div>
 
+      <!-- Lokasi -->
       <div class="form-group">
-        <label class="block font-semibold">Lokasi:</label>
-        <input type="text" name="lokasi" class="w-full border rounded p-2">
+        <label for="lokasi" class="block text-sm mb-2">Lokasi:</label>
+        <input type="text" id="lokasi" name="lokasi" placeholder="Misal: Jakarta, Indonesia" />
       </div>
 
+      <!-- Tema Warna -->
       <div class="form-group">
-        <label class="block font-semibold">Tema Warna Website:</label>
-        <select name="temaWarna" class="w-full border rounded p-2">
-          <option disabled selected>Pilih tema warna</option>
-          <option>Dusty Rose</option>
-          <option>Sage Green</option>
-          <option>Champagne / Gold</option>
-          <option>Ivory / Off White</option>
-          <option>Blush Pink</option>
-          <option>Lavender / Lilac</option>
-          <option>Emerald Green</option>
-          <option>Navy Blue</option>
-          <option>Terracotta / Burnt Orange</option>
-          <option>Maroon / Wine Red</option>
-          <option>Peach / Coral</option>
-          <option>Black & White</option>
-          <option>Dusty Blue</option>
+        <label for="temaWarna" class="block text-sm mb-2">Tema Warna Website:</label>
+        <select id="temaWarna" name="temaWarna">
+          <option value="">Pilih Tema Warna</option>
+          <option value="Dusty Rose">Dusty Rose</option>
+          <option value="Sage Green">Sage Green</option>
+          <option value="Champagne / Gold">Champagne / Gold</option>
+          <option value="Ivory / Off White">Ivory / Off White</option>
+          <option value="Blush Pink">Blush Pink</option>
+          <option value="Lavender / Lilac">Lavender / Lilac</option>
+          <option value="Emerald Green">Emerald Green</option>
+          <option value="Navy Blue">Navy Blue</option>
+          <option value="Terracotta / Burnt Orange">Terracotta / Burnt Orange</option>
+          <option value="Maroon / Wine Red">Maroon / Wine Red</option>
+          <option value="Peach / Coral">Peach / Coral</option>
+          <option value="Black & White">Black & White</option>
+          <option value="Dusty Blue">Dusty Blue</option>
         </select>
       </div>
 
+      <!-- Gaya Visual -->
       <div class="form-group">
-        <label class="block font-semibold">Gaya Visual Website:</label>
-        <select name="gayaVisual" class="w-full border rounded p-2">
-          <option disabled selected>Pilih gaya visual</option>
-          <option>Minimalis elegan</option>
-          <option>Rustic</option>
-          <option>Floral / Botanical</option>
-          <option>Modern glam</option>
-          <option>Classic / Traditional</option>
-          <option>Bohemian</option>
-          <option>Cute & Fun</option>
-          <option>Kultural / Adat</option>
-          <option>Dark mode / Moody</option>
-          <option>Monokrom hitam putih</option>
+        <label for="gayaVisual" class="block text-sm mb-2">Gaya Visual Website:</label>
+        <select id="gayaVisual" name="gayaVisual">
+          <option value="">Pilih Gaya Visual</option>
+          <option value="Minimalis elegan">Minimalis elegan</option>
+          <option value="Rustic">Rustic</option>
+          <option value="Floral / Botanical">Floral / Botanical</option>
+          <option value="Modern glam">Modern glam</option>
+          <option value="Classic / Traditional">Classic / Traditional</option>
+          <option value="Bohemian">Bohemian</option>
+          <option value="Cute & Fun">Cute & Fun</option>
+          <option value="Kultural / Adat">Kultural / Adat</option>
+          <option value="Dark mode / Moody">Dark mode / Moody</option>
+          <option value="Monokrom hitam putih">Monokrom hitam putih</option>
         </select>
       </div>
 
+      <!-- Elemen Website (Checkbox) -->
       <div class="form-group">
-        <label class="block font-semibold">Elemen Tambahan:</label>
-        <label><input type="checkbox" name="heroImage" value="true"> Hero image Produk Unggulan</label>
-        <input type="text" name="heroLink" class="w-full border rounded p-2 mt-1" placeholder="Link Google Drive untuk hero image (jika ada)">
+        <label class="block text-sm mb-2">Elemen yang ingin ditampilkan:</label>
+        <div class="space-y-2">
+          <div class="checkbox-group flex items-center">
+            <input type="checkbox" id="heroImage" name="elemenWebsite" value="Hero image Produk Unggulan" />
+            <label for="heroImage" class="text-sm">Hero image Produk Unggulan</label>
+          </div>
+          <div id="heroImageLinkContainer" class="form-group ml-6 mt-2 hidden">
+            <label for="heroImageLink" class="block text-xs mb-1">Link Google Drive Hero Image:</label>
+            <input type="text" id="heroImageLink" name="heroImageLink" class="text-sm" placeholder="Tempel link shareable Google Drive di sini" />
+            <p class="text-xs text-gray-500 mt-1">Contoh: https://drive.google.com/file/d/ID/view?usp=sharing</p>
+          </div>
+        </div>
       </div>
 
-      <button type="button" onclick="generatePrompt()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buat Prompt</button>
+      <button type="submit" class="btn-primary w-full">Buat Prompt</button>
     </form>
 
-    <div class="mt-6">
-      <h3 class="font-bold mb-2">Prompt Siap Pakai:</h3>
-      <textarea id="outputPrompt" rows="12" class="w-full border rounded p-3"></textarea>
+    <div class="mt-10">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Prompt Siap Pakai Anda:</h2>
+      <div id="promptOutput" class="prompt-output min-h-[150px]">
+        Prompt akan muncul di sini setelah Anda mengisi form dan mengklik "Buat Prompt".
+      </div>
     </div>
   </div>
 
-  <script>
-    function generatePrompt() {
-  const form = document.forms['fashionForm'];
-  const foto = form.foto.value.trim().split('/d/')[1]?.split('/')[0];
-  const hero = form.heroImage.checked ? form.heroLink.value.trim().split('/d/')[1]?.split('/')[0] : null;
-
-  const prompt = `Saya ingin kamu bertindak sebagai seorang frontend developer profesional yang membuat website Katalog Fashion digital. Website ini harus memiliki desain yang modern, elegan, dan responsif (mobile-first & mode Dekstop). Gunakan efek animasi halus saat scroll, parallax ringan, serta transisi yang lembut. Tombol aksi akan muncul secara bertahap.`;
-
-  document.getElementById('outputPrompt').value = prompt;
-}
+  <!-- Javascript eksternal -->
+  <script src="js/script.js"></script>
+</body>
+</html>
