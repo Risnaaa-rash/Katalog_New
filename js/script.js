@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("promptForm");
   const promptOutput = document.getElementById("promptOutput");
+  const copyPromptButton = document.getElementById("copyPromptButton");
 
   // Toggle tampilan link hero image
   const heroCheckbox = document.getElementById("heroImage");
@@ -28,6 +29,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event saat form disubmit
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+
+  //salin prompt ke clipboard
+    copyPromptButton.addEventListener("click", function () {
+      const promptText = promptOutput.textContent;
+
+      //salin prompt ke clipboard
+      navigator.clipboard.writeText(promptOutput.textContent)
+        .then(() => {
+          copyPromptButton.textContent = "Prompt berhasil disalin!";
+          setTimeout(() => {
+            copyPromptButton.textContent = "Salin Prompt";
+          }, 2000);
+        })
+        .catch(err => {
+          console.error("Gagal menyalin prompt: ", err);
+          copyPromptButton.textContent = "Gagal menyalin";
+        });
+    });
 
     // Ambil semua input
     const namaProduk = document.getElementById("namaProduk").value.trim();
