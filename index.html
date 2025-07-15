@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Generator - Website Katalog Fashion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    textarea { white-space: pre-wrap; }
+  </style>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">Form Generator Katalog Fashion</h2>
+    <form id="fashionForm" class="space-y-4">
+      <div class="form-group">
+        <label class="block font-semibold">Nama Produk:</label>
+        <input type="text" name="namaProduk" class="w-full border rounded p-2" required>
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Kategori Produk:</label>
+        <select name="kategoriProduk" class="w-full border rounded p-2" required>
+          <option disabled selected>Pilih kategori</option>
+          <option>Atasan</option>
+          <option>Celana</option>
+          <option>Rok</option>
+          <option>Dress</option>
+          <option>Outer</option>
+          <option>Aksesoris</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Bahan:</label>
+        <input type="text" name="bahan" class="w-full border rounded p-2">
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Ukuran yang tersedia:</label>
+        <input type="text" name="ukuran" class="w-full border rounded p-2">
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Warna yang tersedia:</label>
+        <input type="text" name="warna" class="w-full border rounded p-2">
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Harga Produk:</label>
+        <input type="text" name="harga" class="w-full border rounded p-2">
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Deskripsi Singkat / Keunggulan Produk:</label>
+        <textarea name="deskripsi" class="w-full border rounded p-2"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Gaya Bahasa Katalog:</label>
+        <select name="gayaBahasa" class="w-full border rounded p-2">
+          <option disabled selected>Pilih gaya bahasa</option>
+          <option>Formal</option>
+          <option>Persuasif</option>
+          <option>Trendy Gen Z</option>
+          <option>Elegan</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Foto Produk (Link Google Drive):</label>
+        <input type="text" name="foto" class="w-full border rounded p-2" placeholder="https://drive.google.com/file/d/ID/view">
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Lokasi:</label>
+        <input type="text" name="lokasi" class="w-full border rounded p-2">
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Tema Warna Website:</label>
+        <select name="temaWarna" class="w-full border rounded p-2">
+          <option disabled selected>Pilih tema warna</option>
+          <option>Dusty Rose</option>
+          <option>Sage Green</option>
+          <option>Champagne / Gold</option>
+          <option>Ivory / Off White</option>
+          <option>Blush Pink</option>
+          <option>Lavender / Lilac</option>
+          <option>Emerald Green</option>
+          <option>Navy Blue</option>
+          <option>Terracotta / Burnt Orange</option>
+          <option>Maroon / Wine Red</option>
+          <option>Peach / Coral</option>
+          <option>Black & White</option>
+          <option>Dusty Blue</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Gaya Visual Website:</label>
+        <select name="gayaVisual" class="w-full border rounded p-2">
+          <option disabled selected>Pilih gaya visual</option>
+          <option>Minimalis elegan</option>
+          <option>Rustic</option>
+          <option>Floral / Botanical</option>
+          <option>Modern glam</option>
+          <option>Classic / Traditional</option>
+          <option>Bohemian</option>
+          <option>Cute & Fun</option>
+          <option>Kultural / Adat</option>
+          <option>Dark mode / Moody</option>
+          <option>Monokrom hitam putih</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="block font-semibold">Elemen Tambahan:</label>
+        <label><input type="checkbox" name="heroImage" value="true"> Hero image Produk Unggulan</label>
+        <input type="text" name="heroLink" class="w-full border rounded p-2 mt-1" placeholder="Link Google Drive untuk hero image (jika ada)">
+      </div>
+
+      <button type="button" onclick="generatePrompt()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buat Prompt</button>
+    </form>
+
+    <div class="mt-6">
+      <h3 class="font-bold mb-2">Prompt Siap Pakai:</h3>
+      <textarea id="outputPrompt" rows="12" class="w-full border rounded p-3"></textarea>
+    </div>
+  </div>
+
+  <script>
+    function generatePrompt() {
+  const form = document.forms['fashionForm'];
+  const foto = form.foto.value.trim().split('/d/')[1]?.split('/')[0];
+  const hero = form.heroImage.checked ? form.heroLink.value.trim().split('/d/')[1]?.split('/')[0] : null;
+
+  const prompt = `Saya ingin kamu bertindak sebagai seorang frontend developer profesional yang membuat website Katalog Fashion digital. Website ini harus memiliki desain yang modern, elegan, dan responsif (mobile-first & mode Dekstop). Gunakan efek animasi halus saat scroll, parallax ringan, serta transisi yang lembut. Tombol aksi akan muncul secara bertahap.`;
+
+  document.getElementById('outputPrompt').value = prompt;
+}
