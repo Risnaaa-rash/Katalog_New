@@ -1,261 +1,272 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Generator Prompt Katalog Fashion</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Font Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #86EFAC;
-    }
-
-    .form-group label {
-      font-weight: 900;
-      color: #000000;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      border-radius: 0.5rem;
-      border: 1px solid #cbd5e1;
-      padding: 0.75rem 1rem;
-      width: 100%;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-    }
-
-    .btn-primary {
-      background-color: #6366f1;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
-    }
-
-    .btn-primary:hover {
-      background-color: #4f46e5;
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-
-    .prompt-output {
-      background-color: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      font-size: 0.95rem;
-      color: #1e293b;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      appearance: none;
-      width: 1.25rem;
-      height: 1.25rem;
-      border: 3px solid #ffffff;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      display: inline-block;
-      vertical-align: middle;
-      position: relative;
-    }
-
-    .checkbox-group input[type="checkbox"]:checked {
-      background-color: #6366f1;
-      border-color: #6366f1;
-    }
-
-    .checkbox-group input[type="checkbox"]:checked::after {
-      content: '✔';
-      color: white;
-      font-size: 0.8rem;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .checkbox-group label {
-      margin-left: 0.5rem;
-      cursor: pointer;
-      color: #334155;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Katalog Produk Interaktif</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Simple fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        /* Ensure placeholder has a minimum height */
+        #preview-container:empty {
+            min-height: 300px;
+        }
+    </style>
 </head>
+<body class="bg-gray-50 text-gray-800">
 
-<body class="p-4 sm:p-8 md:p-12 lg:p-16">
-  <div class="max-w-4xl mx-auto bg-gradient-to-r from-green-500 via-green-300 to-green-500 box-shadow-[6px] p-6 sm:p-8 md:p-10 rounded-xl shadow-lg">
-    <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8">Generator Prompt Website Katalog Fashion</h1>
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Generator Katalog Produk</h1>
+            <p class="mt-2 text-md md:text-lg text-gray-600">Isi formulir di bawah untuk melihat pratinjau langsung dan menghasilkan prompt untuk AI.</p>
+        </header>
 
-    <form id="promptForm" class="space-y-6">
-      <!-- Nama Produk -->
-      <div class="form-group">
-        <label for="namaProduk" class="block text-sm mb-2">Nama Produk:</label>
-        <input type="text" id="namaProduk" name="namaProduk" placeholder="Misal: Gaun Malam Elegan" />
-      </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+            <!-- Form Section -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Detail Produk</h2>
+                <div class="space-y-5">
+                    <!-- Form fields -->
+                    <div class="form-group">
+                        <label for="namaProduk" class="block text-sm font-medium text-gray-700">Nama Produk</label>
+                        <input type="text" id="namaProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="Kopi Robusta Temanggung">
+                    </div>
+                    <div class="form-group">
+                        <label for="jenisProduk" class="block text-sm font-medium text-gray-700">Jenis Produk</label>
+                        <select id="jenisProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Fashion</option>
+                            <option>Elektronik</option>
+                            <option>Kerajinan Lokal</option>
+                            <option selected>Kopi</option>
+                            <option>Skincare</option>
+                            <option>Makanan Ringan</option>
+                            <option>Produk Digital</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="deskripsiProduk" class="block text-sm font-medium text-gray-700">Deskripsi Produk</label>
+                        <textarea id="deskripsiProduk" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">Kopi robusta asli dari lereng Gunung Sumbing, Temanggung. Diproses secara natural untuk mengeluarkan aroma kuat dan cita rasa pahit yang khas dengan sentuhan akhir cokelat.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="hargaProduk" class="block text-sm font-medium text-gray-700">Harga Produk</label>
+                        <input type="text" id="hargaProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="Rp 75.000 / 250g">
+                    </div>
+                    <div class="form-group">
+                        <label for="gambarProduk" class="block text-sm font-medium text-gray-700">Link Gambar Produk (URL Langsung atau Google Drive)</label>
+                        <input type="text" id="gambarProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="https://images.unsplash.com/photo-1511920183353-3c7c95a5742c?q=80&w=2787&auto=format&fit=crop">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label for="nomorTelepon" class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
+                            <input type="text" id="nomorTelepon" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="0812-3456-7890">
+                        </div>
+                        <div class="form-group">
+                            <label for="gmail" class="block text-sm font-medium text-gray-700">Gmail</label>
+                            <input type="email" id="gmail" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="kontak@kopitemanggung.id">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="instagram" class="block text-sm font-medium text-gray-700">Instagram</label>
+                        <input type="text" id="instagram" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="@kopitemanggung.id">
+                    </div>
+                    <div class="form-group">
+                        <label for="gayaVisual" class="block text-sm font-medium text-gray-700">Pilihan Gaya Visual Katalog</label>
+                        <select id="gayaVisual" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Editorial magazine</option>
+                            <option>Minimalis modern</option>
+                            <option>Playful colorful</option>
+                            <option>Dark moody</option>
+                            <option>Elegan formal</option>
+                            <option selected>Lokal / Kultural</option>
+                        </select>
+                    </div>
+                    <div class="pt-4">
+                        <button onclick="generateOutput()" class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Buat Prompt & Pratinjau
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Kategori Produk -->
-      <div class="form-group">
-        <label for="kategoriProduk" class="block text-sm mb-2">Kategori Produk:</label>
-        <select id="kategoriProduk" name="kategoriProduk">
-          <option value="">Pilih Kategori</option>
-          <option value="Atasan">Atasan</option>
-          <option value="Celana">Celana</option>
-          <option value="Rok">Rok</option>
-          <option value="Dress">Dress</option>
-          <option value="Outer">Outer</option>
-          <option value="Aksesoris">Aksesoris</option>
-        </select>
-      </div>
+            <!-- Result Section -->
+            <div class="bg-white p-4 md:p-6 rounded-2xl shadow-lg space-y-6">
+                <div>
+                    <h2 class="text-2xl font-bold">Hasil Generasi</h2>
+                </div>
+                
+                <!-- Preview Sub-section -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Pratinjau Katalog</h3>
+                    <div id="preview-container" class="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center text-center text-gray-500 p-4 min-h-[300px]">
+                        <p>Pratinjau katalog akan muncul di sini.</p>
+                    </div>
+                </div>
 
-      <!-- Bahan -->
-      <div class="form-group">
-        <label for="bahan" class="block text-sm mb-2">Bahan:</label>
-        <input type="text" id="bahan" name="bahan" placeholder="Misal: Katun Premium, Sutra Halus" />
-      </div>
-
-      <!-- Ukuran -->
-      <div class="form-group">
-        <label for="ukuranTersedia" class="block text-sm mb-2">Ukuran yang tersedia (pisahkan dengan koma):</label>
-        <input type="text" id="ukuranTersedia" name="ukuranTersedia" placeholder="Misal: S, M, L, XL" />
-      </div>
-
-      <!-- Warna -->
-      <div class="form-group">
-        <label for="warnaTersedia" class="block text-sm mb-2">Warna yang tersedia (pisahkan dengan koma):</label>
-        <input type="text" id="warnaTersedia" name="warnaTersedia" placeholder="Misal: Hitam, Merah Marun, Biru Navy" />
-      </div>
-
-      <!-- Harga -->
-      <div class="form-group">
-        <label for="hargaProduk" class="block text-sm mb-2">Harga Produk:</label>
-        <input type="text" id="hargaProduk" name="hargaProduk" placeholder="Misal: Rp 250.000" />
-      </div>
-
-      <!-- Deskripsi -->
-      <div class="form-group">
-        <label for="deskripsiProduk" class="block text-sm mb-2">Deskripsi Singkat / Keunggulan Produk:</label>
-        <textarea id="deskripsiProduk" name="deskripsiProduk" rows="4" placeholder="Misal: Gaun ini didesain dengan potongan A-line yang elegan..."></textarea>
-      </div>
-
-      <!-- Gaya Bahasa -->
-      <div class="form-group">
-        <label for="gayaBahasa" class="block text-sm mb-2">Gaya Bahasa Katalog:</label>
-        <select id="gayaBahasa" name="gayaBahasa">
-          <option value="">Pilih Gaya Bahasa</option>
-          <option value="Formal">Formal</option>
-          <option value="Persuasif">Persuasif</option>
-          <option value="Trendy Gen Z">Trendy Gen Z</option>
-          <option value="Elegan">Elegan</option>
-        </select>
-      </div>
-
-      <!-- Foto Produk -->
-      <div class="form-group">
-        <label for="fotoProdukLink" class="block text-sm mb-2">Foto Produk (Link Google Drive):</label>
-        <input type="text" id="fotoProdukLink" name="fotoProdukLink" placeholder="Tempel link shareable Google Drive Anda di sini" />
-        <p class="text-xs text-gray-500 mt-1">Contoh: https://drive.google.com/file/d/ID/view?usp=sharing</p>
-      </div>
-
-      <!-- Lokasi -->
-      <div class="form-group">
-        <label for="lokasi" class="block text-sm mb-2">Lokasi:</label>
-        <input type="text" id="lokasi" name="lokasi" placeholder="Misal: Jakarta, Indonesia" />
-      </div>
-
-      <!-- Tema Warna -->
-      <div class="form-group">
-        <label for="temaWarna" class="block text-sm mb-2">Tema Warna Website:</label>
-        <select id="temaWarna" name="temaWarna">
-          <option value="">Pilih Tema Warna</option>
-          <option value="Dusty Rose">Dusty Rose</option>
-          <option value="Sage Green">Sage Green</option>
-          <option value="Champagne / Gold">Champagne / Gold</option>
-          <option value="Ivory / Off White">Ivory / Off White</option>
-          <option value="Blush Pink">Blush Pink</option>
-          <option value="Lavender / Lilac">Lavender / Lilac</option>
-          <option value="Emerald Green">Emerald Green</option>
-          <option value="Navy Blue">Navy Blue</option>
-          <option value="Terracotta / Burnt Orange">Terracotta / Burnt Orange</option>
-          <option value="Maroon / Wine Red">Maroon / Wine Red</option>
-          <option value="Peach / Coral">Peach / Coral</option>
-          <option value="Black & White">Black & White</option>
-          <option value="Dusty Blue">Dusty Blue</option>
-        </select>
-      </div>
-
-      <!-- Gaya Visual -->
-      <div class="form-group">
-        <label for="gayaVisual" class="block text-sm mb-2">Gaya Visual Website:</label>
-        <select id="gayaVisual" name="gayaVisual">
-          <option value="">Pilih Gaya Visual</option>
-          <option value="Minimalis elegan">Minimalis elegan</option>
-          <option value="Rustic">Rustic</option>
-          <option value="Floral / Botanical">Floral / Botanical</option>
-          <option value="Modern glam">Modern glam</option>
-          <option value="Classic / Traditional">Classic / Traditional</option>
-          <option value="Bohemian">Bohemian</option>
-          <option value="Cute & Fun">Cute & Fun</option>
-          <option value="Kultural / Adat">Kultural / Adat</option>
-          <option value="Dark mode / Moody">Dark mode / Moody</option>
-          <option value="Monokrom hitam putih">Monokrom hitam putih</option>
-        </select>
-      </div>
-
-      <!-- Elemen Website (Checkbox) -->
-      <div class="form-group">
-        <label class="block text-sm mb-2">Elemen yang ingin ditampilkan:</label>
-        <div class="space-y-2">
-          <div class="checkbox-group flex items-center">
-            <input type="checkbox" id="heroImage" name="elemenWebsite" value="Hero image Produk Unggulan" class="w-full border-2 border-white rounded-sm "/>
-            <label for="heroImage" class="text-sm">Hero image Produk Unggulan</label>
-          </div>
-          <div id="heroImageLinkContainer" class="form-group ml-6 mt-2 hidden">
-            <label for="heroImageLink" class="block text-xs mb-1">Link Google Drive Hero Image:</label>
-            <input type="text" id="heroImageLink" name="heroImageLink" class="text-sm" placeholder="Tempel link shareable Google Drive di sini" />
-            <p class="text-xs text-gray-500 mt-1">Contoh: https://drive.google.com/file/d/ID/view?usp=sharing</p>
-          </div>
+                <!-- Prompt Sub-section -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Prompt untuk AI</h3>
+                    <div class="relative">
+                        <textarea id="promptOutput" rows="8" class="w-full p-3 pr-16 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" readonly placeholder="Prompt akan dibuat di sini..."></textarea>
+                        <button id="copyButton" onclick="copyPrompt()" class="absolute top-3 right-3 py-1 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            Salin
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <button type="submit" class="btn-primary w-full">Buat Prompt</button>
-    </form>
-
-    <div class="mt-10">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Prompt Siap Pakai Anda:</h2>
-      <div id="promptOutput" class="prompt-output min-h-[150px]">
-        Prompt akan muncul di sini setelah Anda mengisi form dan mengklik "Buat Prompt".
-      </div>
-      <button class="text-sm text-white btn-primary w-full mt-4" id="copyPromptButton">
-        Salin Prompt
-      </button>
     </div>
-  </div>
 
-  <!-- Javascript eksternal -->
-  <script src="js/script.js"></script>
+    <script>
+        // Function to handle Google Drive link conversion
+        function getImageUrl(url) {
+            if (url.includes("drive.google.com")) {
+                const match = url.match(/[-\w]{25,}/);
+                if (match) {
+                    const fileId = match[0];
+                    return `https://lh3.googleusercontent.com/d/${fileId}`;
+                }
+            }
+            return url;
+        }
+
+        // Function to generate the catalog preview and the AI prompt
+        function generateOutput() {
+            // 1. Get all values from the form
+            const nama = document.getElementById("namaProduk").value;
+            const jenis = document.getElementById("jenisProduk").value;
+            const deskripsi = document.getElementById("deskripsiProduk").value;
+            const harga = document.getElementById("hargaProduk").value;
+            const gambar = document.getElementById("gambarProduk").value;
+            const telp = document.getElementById("nomorTelepon").value;
+            const gmail = document.getElementById("gmail").value;
+            const ig = document.getElementById("instagram").value;
+            const gaya = document.getElementById("gayaVisual").value;
+
+            const imageUrl = getImageUrl(gambar);
+
+            // 2. Define style themes based on selection
+            let theme = {
+                bg: 'bg-white',
+                text: 'text-gray-800',
+                title: 'text-gray-900',
+                accent: 'text-indigo-600',
+                containerClass: ''
+            };
+
+            switch (gaya) {
+                case 'Editorial magazine':
+                    theme = { ...theme, containerClass: 'font-serif', title: 'text-4xl font-serif font-bold' };
+                    break;
+                case 'Minimalis modern':
+                    theme = { ...theme, bg: 'bg-gray-50', text: 'text-gray-600', title: 'text-gray-800 font-sans font-semibold' };
+                    break;
+                case 'Playful colorful':
+                    theme = { ...theme, bg: 'bg-yellow-50', text: 'text-pink-800', title: 'text-cyan-600 font-bold', accent: 'text-orange-500' };
+                    break;
+                case 'Dark moody':
+                    theme = { ...theme, bg: 'bg-gray-900', text: 'text-gray-300', title: 'text-white font-serif', accent: 'text-teal-400' };
+                    break;
+                case 'Elegan formal':
+                    theme = { ...theme, bg: 'bg-stone-100', text: 'text-stone-700', title: 'text-stone-900 font-serif tracking-wider', accent: 'text-amber-800' };
+                    break;
+                case 'Lokal / Kultural':
+                    theme = { ...theme, bg: 'bg-amber-50', text: 'text-stone-800', title: 'text-emerald-900 font-bold', accent: 'text-red-700', containerClass: 'border-4 border-emerald-900 p-4' };
+                    break;
+            }
+
+            // 3. Construct the HTML for the preview
+            const previewHtml = `
+                <div class="w-full h-full p-6 md:p-8 rounded-lg overflow-hidden fade-in ${theme.bg} ${theme.text} ${theme.containerClass}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg">
+                            <img src="${imageUrl}" alt="[Gambar dari ${nama}]" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Gambar+Tidak+Valid';">
+                        </div>
+                        <div class="flex flex-col h-full justify-center">
+                            <h3 class="text-sm font-semibold tracking-widest uppercase ${theme.accent}">${jenis}</h3>
+                            <h1 class="text-3xl md:text-4xl font-bold mt-2 ${theme.title}">${nama}</h1>
+                            <p class="mt-4 text-base">${deskripsi}</p>
+                            <p class="mt-6 text-2xl font-bold ${theme.title}">${harga}</p>
+                            <div class="mt-8 pt-6 border-t border-gray-200/50">
+                                <h4 class="font-semibold ${theme.title}">Hubungi Kami:</h4>
+                                <div class="mt-3 space-y-2 text-sm">
+                                    <p><strong>📞 Telepon:</strong> ${telp}</p>
+                                    <p><strong>✉️ Gmail:</strong> ${gmail}</p>
+                                    <p><strong>📷 Instagram:</strong> ${ig}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 4. Display the preview
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.innerHTML = previewHtml;
+
+            // 5. Generate and display the AI prompt
+            const promptText = `Saya ingin kamu bertindak sebagai seorang frontend developer profesional yang membuat website digital katalog produk. Website ini harus memiliki desain yang modern, profesional, dan responsif (mobile-first dan desktop). Gunakan animasi fade-in lembut saat pengguna melakukan scroll, menciptakan pengalaman interaktif yang elegan dan tidak mengganggu fokus.
+
+Setiap elemen penting seperti form input, preview hasil digital katalog produk, dan tombol aksi akan muncul secara bertahap dengan transisi yang halus untuk memberikan kesan modern dan profesional.
+
+Website mencakup beberapa bagian utama seperti:
+
+- Nama Produk: ${nama}
+- Jenis Produk: ${jenis}
+- Deskripsi: ${deskripsi}
+- Harga: ${harga}
+- Gambar Produk: ${imageUrl}
+- Kontak:
+  📞 Telepon: ${telp}
+  ✉️ Gmail: ${gmail}
+  📷 Instagram: ${ig}
+
+Gunakan gaya visual katalog: ${gaya}
+
+Desain harus menggabungkan gambar produk, deskripsi singkat, dan tulisan promosi dalam layout landscape & estetik (blok-blok terpisah dengan kombinasi teks dan foto). Tetap dengan desain akhir bergaya editorial-style ala majalah website katalog, namun tema visualnya dipilih oleh pengguna.`;
+            
+            const promptTextarea = document.getElementById('promptOutput');
+            promptTextarea.value = promptText;
+
+            // 6. Enable the copy button
+            document.getElementById('copyButton').disabled = false;
+        }
+
+        // Function to copy the prompt to clipboard
+        function copyPrompt() {
+            const promptTextarea = document.getElementById('promptOutput');
+            promptTextarea.select();
+            promptTextarea.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                document.execCommand('copy');
+                const copyButton = document.getElementById('copyButton');
+                copyButton.innerText = 'Disalin!';
+                setTimeout(() => {
+                    copyButton.innerText = 'Salin';
+                }, 2000);
+            } catch (err) {
+                console.error('Gagal menyalin prompt: ', err);
+                // Fallback for environments where execCommand is not supported
+                alert('Gagal menyalin. Silakan salin secara manual.');
+            }
+        }
+    </script>
 </body>
 </html>
