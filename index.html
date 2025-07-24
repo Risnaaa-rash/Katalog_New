@@ -1,272 +1,507 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Katalog Produk Interaktif</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Custom styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-        /* Simple fade-in animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-        /* Ensure placeholder has a minimum height */
-        #preview-container:empty {
-            min-height: 300px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Generator Katalog Produk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* Custom styles for animations, gradients, and a more dynamic UI */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      transition: all 0.2s ease-in-out;
+      border-color: #d1d5db;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Primary button styling with gradient to match body/container */
+    .btn-primary {
+      background-image: linear-gradient(to right, #6366f1, #8b5cf6); /* Indigo 500 to Purple 500 */
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); /* Shadow for depth */
+    }
+
+    .btn-primary:hover {
+      background-image: linear-gradient(to right, #4f46e5, #7c3aed); /* Darker shades on hover */
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Copy button styling */
+    .copy-btn {
+      background-color: #4f46e5; /* A darker indigo */
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: #3730a3; /* Even darker indigo on hover */
+      transform: translateY(-1px);
+    }
+
+    /* New styles for Add Social Media button */
+    .btn-add-social, .btn-add-image { /* Combined styles for add buttons */
+      background-image: linear-gradient(to right, #4c51bf, #7b68ee); /* Slightly darker blue/purple */
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(76, 81, 191, 0.2);
+    }
+
+    .btn-add-social:hover, .btn-add-image:hover { /* Combined styles for add button hovers */
+      background-image: linear-gradient(to right, #3e44a8, #6a5ac0);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(76, 81, 191, 0.3);
+    }
+
+    /* New styles for Remove Social Media button */
+    .remove-social-media-btn, .remove-image-btn { /* Combined styles for remove buttons */
+      background-color: #dc2626; /* A slightly darker red (red-600) */
+      transition: background-color 0.3s ease;
+    }
+
+    .remove-social-media-btn:hover, .remove-image-btn:hover { /* Combined styles for remove button hovers */
+      background-color: #b91c1c; /* Even darker red (red-700) */
+    }
+
+    /* Message box for copy confirmation */
+    .message-box {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #10b981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    .message-box.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Floating animation for background icons */
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-12px) scale(1.05); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
+    .animated-icon {
+      position: absolute;
+      animation: float 4s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+      /* Increased base opacity to make them more visible */
+      opacity: 0.3; /* More visible than 0.1, but still subtle */
+      font-size: 2rem; /* Smaller size for desktop */
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for hover effects */
+    }
+
+    /* Adjusted hover effect for interactivity to be more noticeable */
+    .animated-icon:hover {
+      transform: translateY(-8px) scale(1.1); /* More pronounced lift and enlarge on hover */
+      opacity: 0.7; /* Significantly more opaque on hover */
+    }
+
+    /* Adjust icon size and opacity for smaller screens */
+    @media (max-width: 768px) {
+      .animated-icon {
+        font-size: 1.2rem; /* Even smaller for mobile */
+        opacity: 0.2; /* More visible for mobile */
+      }
+      .animated-icon:hover {
+        transform: translateY(-4px) scale(1.05);
+        opacity: 0.5;
+      }
+    }
+
+    /* Main layout adjustment - no sidebar */
+    .main-layout-container {
+      display: flex;
+      align-items: flex-start; /* Align items to the top */
+      justify-content: center;
+      width: 100%; /* Take full width */
+      max-width: 1000px; /* Adjust max-width as needed */
+      margin-left: auto; /* Center the container */
+      margin-right: auto; /* Center the container */
+    }
+
+    @media (max-width: 768px) {
+      .main-layout-container {
+        flex-direction: column; /* Stack vertically on small screens */
+        align-items: center;
+        margin-left: 0; /* Remove left margin on mobile */
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-100 min-h-screen p-4 sm:p-6 bg-gradient-to-r from-blue-300 to-purple-400 flex items-center justify-center relative">
 
-    <div class="container mx-auto p-4 md:p-8">
-        <header class="text-center mb-8 md:mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Generator Katalog Produk</h1>
-            <p class="mt-2 text-md md:text-lg text-gray-600">Isi formulir di bawah untuk melihat pratinjau langsung dan menghasilkan prompt untuk AI.</p>
-        </header>
+  <!-- Background Animated Icons -->
+  <i class="fas fa-camera animated-icon" style="top: 8%; left: 6%; animation-delay: 0s; color: rgba(255, 99, 71, 0.8);"></i>
+  <i class="fas fa-book animated-icon" style="top: 20%; right: 12%; animation-delay: 0.3s; color: rgba(60, 179, 113, 0.8);"></i>
+  <i class="fas fa-laptop animated-icon" style="bottom: 18%; left: 14%; animation-delay: 0.6s; color: rgba(255, 215, 0, 0.8);"></i>
+  <i class="fas fa-mobile-alt animated-icon" style="bottom: 8%; right: 8%; animation-delay: 0.9s; color: rgba(138, 43, 226, 0.8);"></i>
+  <i class="fas fa-dollar-sign animated-icon" style="top: 30%; left: 40%; animation-delay: 2.4s; color: rgba(255, 105, 180, 0.8);"></i>
+  <i class="fas fa-map-marker-alt animated-icon" style="bottom: 25%; right: 30%; animation-delay: 2.7s; color: rgba(0, 206, 209, 0.8);"></i>
+  <i class="fas fa-camera animated-icon" style="top: 40%; left: 20%; animation-delay: 1.2s; color: rgba(255, 140, 0, 0.8);"></i>
+  <i class="fas fa-book animated-icon" style="top: 60%; right: 25%; animation-delay: 1.5s; color: rgba(75, 0, 130, 0.8);"></i>
+  <i class="fas fa-laptop animated-icon" style="bottom: 30%; left: 30%; animation-delay: 1.8s; color: rgba(0, 191, 255, 0.8);"></i>
+  <i class="fas fa-mobile-alt animated-icon" style="bottom: 50%; right: 15%; animation-delay: 2.1s; color: rgba(218, 112, 214, 0.8);"></i>
+  <i class="fas fa-shopping-cart animated-icon" style="top: 15%; left: 50%; animation-delay: 3s; color: rgba(255, 69, 0, 0.8);"></i>
+  <i class="fas fa-star animated-icon" style="bottom: 10%; left: 5%; animation-delay: 3.3s; color: rgba(0, 255, 127, 0.8);"></i>
+  <i class="fas fa-lightbulb animated-icon" style="top: 55%; right: 5%; animation-delay: 3.6s; color: rgba(255, 255, 0, 0.8);"></i>
+  <i class="fas fa-gem animated-icon" style="top: 5%; right: 40%; animation-delay: 3.9s; color: rgba(123, 104, 238, 0.8);"></i>
+  <i class="fas fa-tags animated-icon" style="bottom: 40%; left: 45%; animation-delay: 4.2s; color: rgba(255, 99, 71, 0.8);"></i>
+  <i class="fas fa-palette animated-icon" style="top: 70%; left: 10%; animation-delay: 4.5s; color: rgba(255, 165, 0, 0.8);"></i>
+  <i class="fas fa-edit animated-icon" style="top: 10%; left: 70%; animation-delay: 4.8s; color: rgba(255, 20, 147, 0.8);"></i>
+  <i class="fas fa-chart-line animated-icon" style="bottom: 5%; right: 70%; animation-delay: 5.1s; color: rgba(0, 128, 0, 0.8);"></i>
+  <i class="fas fa-cloud animated-icon" style="top: 25%; right: 60%; animation-delay: 5.4s; color: rgba(100, 149, 237, 0.8);"></i>
+  <i class="fas fa-money-bill-wave animated-icon" style="top: 80%; left: 80%; animation-delay: 5.7s; color: rgba(34, 139, 34, 0.8);"></i>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            <!-- Form Section -->
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-bold mb-6">Detail Produk</h2>
-                <div class="space-y-5">
-                    <!-- Form fields -->
-                    <div class="form-group">
-                        <label for="namaProduk" class="block text-sm font-medium text-gray-700">Nama Produk</label>
-                        <input type="text" id="namaProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="Kopi Robusta Temanggung">
-                    </div>
-                    <div class="form-group">
-                        <label for="jenisProduk" class="block text-sm font-medium text-gray-700">Jenis Produk</label>
-                        <select id="jenisProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                            <option>Fashion</option>
-                            <option>Elektronik</option>
-                            <option>Kerajinan Lokal</option>
-                            <option selected>Kopi</option>
-                            <option>Skincare</option>
-                            <option>Makanan Ringan</option>
-                            <option>Produk Digital</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="deskripsiProduk" class="block text-sm font-medium text-gray-700">Deskripsi Produk</label>
-                        <textarea id="deskripsiProduk" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">Kopi robusta asli dari lereng Gunung Sumbing, Temanggung. Diproses secara natural untuk mengeluarkan aroma kuat dan cita rasa pahit yang khas dengan sentuhan akhir cokelat.</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="hargaProduk" class="block text-sm font-medium text-gray-700">Harga Produk</label>
-                        <input type="text" id="hargaProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="Rp 75.000 / 250g">
-                    </div>
-                    <div class="form-group">
-                        <label for="gambarProduk" class="block text-sm font-medium text-gray-700">Link Gambar Produk (URL Langsung atau Google Drive)</label>
-                        <input type="text" id="gambarProduk" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="https://images.unsplash.com/photo-1511920183353-3c7c95a5742c?q=80&w=2787&auto=format&fit=crop">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="form-group">
-                            <label for="nomorTelepon" class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
-                            <input type="text" id="nomorTelepon" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="0812-3456-7890">
-                        </div>
-                        <div class="form-group">
-                            <label for="gmail" class="block text-sm font-medium text-gray-700">Gmail</label>
-                            <input type="email" id="gmail" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="kontak@kopitemanggung.id">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label for="instagram" class="block text-sm font-medium text-gray-700">Instagram</label>
-                        <input type="text" id="instagram" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="@kopitemanggung.id">
-                    </div>
-                    <div class="form-group">
-                        <label for="gayaVisual" class="block text-sm font-medium text-gray-700">Pilihan Gaya Visual Katalog</label>
-                        <select id="gayaVisual" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                            <option>Editorial magazine</option>
-                            <option>Minimalis modern</option>
-                            <option>Playful colorful</option>
-                            <option>Dark moody</option>
-                            <option>Elegan formal</option>
-                            <option selected>Lokal / Kultural</option>
-                        </select>
-                    </div>
-                    <div class="pt-4">
-                        <button onclick="generateOutput()" class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Buat Prompt & Pratinjau
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <!-- Main Layout Container (Main Content only) -->
+  <div class="main-layout-container">
+    <!-- Main Content Container -->
+    <div class="max-w-3xl w-full mx-auto p-6 rounded-xl shadow-xl space-y-8 sm:space-y-10 z-10 relative bg-gradient-to-r from-blue-200 to-purple-300">
+      <h2 class="text-3xl font-extrabold text-gray-800 mb-4 text-center">AI Generator Katalog Produk</h2>
+      <p class="text-gray-700 text-center mb-6">
+        Buat katalog yang Anda inginkan dengan mudah melalui prompt AI Generator.
+      </p>
 
-            <!-- Result Section -->
-            <div class="bg-white p-4 md:p-6 rounded-2xl shadow-lg space-y-6">
-                <div>
-                    <h2 class="text-2xl font-bold">Hasil Generasi</h2>
-                </div>
-                
-                <!-- Preview Sub-section -->
-                <div>
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Pratinjau Katalog</h3>
-                    <div id="preview-container" class="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center text-center text-gray-500 p-4 min-h-[300px]">
-                        <p>Pratinjau katalog akan muncul di sini.</p>
-                    </div>
-                </div>
+      <!-- Form Section -->
+      <form id="katalogForm" class="space-y-6 p-6 rounded-lg shadow-md bg-gradient-to-r from-blue-100 to-purple-200">
 
-                <!-- Prompt Sub-section -->
-                <div>
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Prompt untuk AI</h3>
-                    <div class="relative">
-                        <textarea id="promptOutput" rows="8" class="w-full p-3 pr-16 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" readonly placeholder="Prompt akan dibuat di sini..."></textarea>
-                        <button id="copyButton" onclick="copyPrompt()" class="absolute top-3 right-3 py-1 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                            Salin
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="namaProduk" class="block font-medium text-gray-700 mb-1"><i class="fas fa-tag mr-2"></i>Nama Produk:</label>
+          <input type="text" id="namaProduk" class="w-full border rounded-md px-4 py-2" required>
         </div>
+
+        <div class="form-group">
+          <label for="jenisProduk" class="block font-medium text-gray-700 mb-1"><i class="fas fa-box mr-2"></i>Jenis Produk:</label>
+          <input type="text" id="jenisProduk" class="w-full border rounded-md px-4 py-2" required>
+        </div>
+
+        <div class="form-group">
+          <label for="deskripsiProduk" class="block font-medium text-gray-700 mb-1"><i class="fas fa-align-left mr-2"></i>Deskripsi Produk:</label>
+          <textarea id="deskripsiProduk" class="w-full border rounded-md px-4 py-2" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="hargaProduk" class="block font-medium text-gray-700 mb-1"><i class="fas fa-dollar-sign mr-2"></i>Harga Produk:</label>
+          <input type="text" id="hargaProduk" class="w-full border rounded-md px-4 py-2" required>
+        </div>
+
+        <!-- Dynamic Image Upload Section -->
+        <div class="form-group">
+          <label class="block font-medium text-gray-700 mb-2">
+            <i class="fas fa-images mr-2"></i>Gambar Produk (Google Drive Link):
+          </label>
+          <div id="imageInputContainer" class="space-y-3">
+            <!-- Image inputs will be added here dynamically -->
+          </div>
+          <button type="button" id="addImageBtn" class="mt-3 btn-add-image text-white px-4 py-2 rounded-md text-sm font-semibold shadow-sm">
+            <i class="fas fa-plus mr-1"></i>Tambah Gambar Produk
+          </button>
+          <p class="text-sm text-gray-500 mt-1">
+            Contoh: <code>https://lh3.googleusercontent.com/d/FILE_ID</code> (otomatis dikonversi)
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="telepon" class="block font-medium text-gray-700 mb-1"><i class="fas fa-phone mr-2"></i>Nomor Telepon:</label>
+          <input type="text" id="telepon" class="w-full border rounded-md px-4 py-2">
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="block font-medium text-gray-700 mb-1"><i class="fas fa-envelope mr-2"></i>Email:</label>
+          <input type="email" id="email" class="w-full border rounded-md px-4 py-2">
+        </div>
+
+        <!-- Social Media Section - Dynamic Inputs -->
+        <div class="form-group">
+          <label class="block font-medium text-gray-700 mb-2"><i class="fas fa-share-alt mr-2"></i>Media Sosial:</label>
+          <div id="socialMediaContainer" class="space-y-3">
+            <!-- Social media inputs will be added here dynamically by JavaScript -->
+          </div>
+          <button type="button" id="addSocialMediaBtn" class="mt-3 btn-add-social text-white px-4 py-2 rounded-md text-sm font-semibold shadow-sm">
+            <i class="fas fa-plus mr-1"></i>Tambah Media Sosial
+          </button>
+        </div>
+
+        <div class="form-group flex items-center space-x-3">
+          <label for="warnaWeb" class="block font-medium text-gray-700"><i class="fas fa-palette mr-2"></i>Warna Web:</label>
+          <input type="color" id="warnaWeb" class="w-12 h-10 border rounded-md cursor-pointer" value="#ffffff">
+          <span id="kodeWarnaWeb" class="text-sm font-mono text-gray-600">#ffffff</span>
+        </div>
+
+        <div class="form-group flex items-center space-x-3">
+          <label for="warnaTeks" class="block font-medium text-gray-700"><i class="fas fa-font mr-2"></i>Warna Teks:</label>
+          <input type="color" id="warnaTeks" class="w-12 h-10 border rounded-md cursor-pointer" value="#000000">
+          <span id="kodeWarnaTeks" class="text-sm font-mono text-gray-600">#000000</span>
+        </div>
+
+        <div class="form-group">
+          <label for="gayaVisual" class="block font-medium text-gray-700 mb-1"><i class="fas fa-brush mr-2"></i>Gaya Visual Katalog:</label>
+          <select id="gayaVisual" class="w-full border rounded-md px-4 py-2">
+            <option>Editorial magazine</option>
+            <option>Minimalis modern</option>
+            <option>Playful colorful</option>
+            <option>Dark moody</option>
+            <option>Elegan formal</option>
+            <option>Lokal / Kultural</option>
+            <option>Vintage retro</option>
+            <option>Teknologi futuristik</option>
+            <option>Handmade / Crafty</option>
+            <option>Alam / Organik</option>
+            <option>Industrial chic</option>
+            <option>Pop Art</option>
+            <option>Grungy / Urban</option>
+            <option>Watercolor / Artistic</option>
+            <option>Geometric Abstract</option>
+            <option>Sci-Fi / Cyberpunk</option>
+            <option>Fantasy / Mythical</option>
+            <option>Retro Futurism</option>
+            <option>Bohemian / Etnik</option>
+            <option>Clean & Professional</option>
+            <option>Luxury / Premium</option>
+          </select>
+        </div>
+
+        <button type="button" onclick="generatePrompt()" class="btn-primary text-white px-6 py-3 rounded-md font-semibold w-full sm:w-auto shadow-md">
+          <i class="fas fa-magic mr-2"></i>Buat Prompt
+        </button>
+      </form>
+
+      <!-- Output Prompt -->
+      <div class="mt-8">
+        <label class="block font-bold text-gray-800 mb-2">Hasil Prompt:</label>
+        <div class="relative">
+          <textarea id="outputPrompt" class="w-full border rounded-md px-4 py-3 text-sm bg-gray-50 font-mono resize-y min-h-[150px]" readonly></textarea>
+          <button onclick="copyPrompt()" class="copy-btn text-white p-2 rounded-md text-xs font-semibold shadow-sm absolute top-2 right-2">
+            <i class="fas fa-copy mr-1"></i>Salin Prompt
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Function to handle Google Drive link conversion
-        function getImageUrl(url) {
-            if (url.includes("drive.google.com")) {
-                const match = url.match(/[-\w]{25,}/);
-                if (match) {
-                    const fileId = match[0];
-                    return `https://lh3.googleusercontent.com/d/${fileId}`;
-                }
-            }
-            return url;
+  <!-- Message Box for copy confirmation -->
+  <div id="messageBox" class="message-box">Prompt berhasil disalin!</div>
+
+  <!-- Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get references to DOM elements
+      const warnaWebInput = document.getElementById("warnaWeb");
+      const warnaTeksInput = document.getElementById("warnaTeks");
+      const kodeWarnaWebSpan = document.getElementById("kodeWarnaWeb");
+      const kodeWarnaTeksSpan = document.getElementById("kodeWarnaTeks");
+      const outputPromptTextarea = document.getElementById("outputPrompt");
+      const messageBox = document.getElementById("messageBox");
+      const socialMediaContainer = document.getElementById("socialMediaContainer");
+      const addSocialMediaBtn = document.getElementById("addSocialMediaBtn");
+      const imageInputContainer = document.getElementById("imageInputContainer"); // New image container
+      const addImageBtn = document.getElementById("addImageBtn"); // New add image button
+
+      // Initialize color code display with default values
+      kodeWarnaWebSpan.textContent = warnaWebInput.value;
+      kodeWarnaTeksSpan.textContent = warnaTeksInput.value;
+
+      // Update color code display when web color input changes
+      warnaWebInput.addEventListener("input", () => {
+        kodeWarnaWebSpan.textContent = warnaWebInput.value;
+      });
+
+      // Update color code display when text color input changes
+      warnaTeksInput.addEventListener("input", () => {
+        kodeWarnaTeksSpan.textContent = warnaTeksInput.value;
+      });
+
+      /**
+       * Converts a Google Drive share link to a direct content link.
+       * This is useful because Google Drive share links often don't directly embed.
+       * It extracts the file ID and constructs a direct image URL.
+       * @param {string} url - The Google Drive share URL.
+       * @returns {string} The converted direct content URL or the original URL if no match.
+       */
+      function convertDriveLink(url) {
+        if (!url) return ''; // Return empty string if URL is empty
+        // Regex to find the Google Drive file ID from various share link formats
+        const match = url.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
+        // If a Google Drive ID is found, construct the direct content URL.
+        // Otherwise, return the original URL.
+        return match ? `https://lh3.googleusercontent.com/d/${match[1]}` : url;
+      }
+
+      /**
+       * Adds a new social media input row.
+       * Includes a button to remove the newly added row.
+       */
+      function addSocialMediaInput() {
+        const socialMediaEntry = document.createElement('div');
+        socialMediaEntry.className = 'flex items-center space-x-2 social-media-entry'; // Tailwind classes for layout
+        socialMediaEntry.innerHTML = `
+          <select class="social-platform w-1/3 border rounded-md px-4 py-2 bg-white">
+            <option value="Instagram">Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Twitter/X">Twitter/X</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="TikTok">TikTok</option>
+            <option value="YouTube">YouTube</option>
+            <option value="Website">Website</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+          <input type="text" class="social-link w-2/3 border rounded-md px-4 py-2" placeholder="Link atau User ID">
+          <button type="button" class="remove-social-media-btn text-white p-2 rounded-md text-sm">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        socialMediaContainer.appendChild(socialMediaEntry); // Add the new row to the container
+
+        // Add event listener to the new remove button to delete its parent row
+        socialMediaEntry.querySelector('.remove-social-media-btn').addEventListener('click', () => {
+          socialMediaEntry.remove();
+        });
+      }
+
+      /**
+       * Adds a new image input row.
+       * Includes a button to remove the newly added row.
+       */
+      function addImageInput() {
+        const imageEntry = document.createElement('div');
+        imageEntry.className = 'flex items-center space-x-2 image-entry'; // Tailwind classes for layout
+        imageEntry.innerHTML = `
+          <input type="text" class="image-link w-full border rounded-md px-4 py-2" placeholder="https://drive.google.com/file/d/ID/view?usp=sharing">
+          <button type="button" class="remove-image-btn text-white p-2 rounded-md text-sm">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        imageInputContainer.appendChild(imageEntry); // Add the new row to the container
+
+        // Add event listener to the new remove button to delete its parent row
+        imageEntry.querySelector('.remove-image-btn').addEventListener('click', () => {
+          imageEntry.remove();
+        });
+      }
+
+      // Add an initial social media input row when the page loads
+      addSocialMediaInput();
+      // Add an initial image input row when the page loads
+      addImageInput();
+
+      // Event listener for adding more social media inputs
+      addSocialMediaBtn.addEventListener('click', addSocialMediaInput);
+      // Event listener for adding more image inputs
+      addImageBtn.addEventListener('click', addImageInput);
+
+      /**
+       * Generates the AI prompt string based on all the collected form input values.
+       * This function is made globally accessible for the onclick attribute in HTML.
+       */
+      window.generatePrompt = function () {
+        // Get values from all form fields, using fallback text if fields are empty
+        const namaProduk = document.getElementById("namaProduk").value;
+        const jenisProduk = document.getElementById("jenisProduk").value;
+        const deskripsi = document.getElementById("deskripsiProduk").value;
+        const harga = document.getElementById("hargaProduk").value;
+        const telepon = document.getElementById("telepon").value;
+        const email = document.getElementById("email").value;
+        const warnaWeb = document.getElementById("warnaWeb").value;
+        const warnaTeks = document.getElementById("warnaTeks").value;
+        const gaya = document.getElementById("gayaVisual").value;
+
+        // Collect all image links from dynamic inputs
+        let imageUrls = [];
+        const imageEntries = imageInputContainer.querySelectorAll('.image-entry .image-link');
+        imageEntries.forEach(input => {
+          const convertedLink = convertDriveLink(input.value);
+          if (convertedLink) {
+            imageUrls.push(convertedLink);
+          }
+        });
+        const gambarPrompt = imageUrls.length > 0 ? imageUrls.map(url => `- ${url}`).join('\n') : '[Tidak Tersedia]';
+
+
+        // Collect social media links from dynamic inputs
+        let socialMediaPrompt = '';
+        const socialMediaEntries = socialMediaContainer.querySelectorAll('.social-media-entry');
+        socialMediaEntries.forEach(entry => {
+          const platform = entry.querySelector('.social-platform').value;
+          const link = entry.querySelector('.social-link').value;
+          if (platform && link) { // Only add if both platform and link are provided
+            socialMediaPrompt += `- ${platform}: ${link}\n`;
+          }
+        });
+
+        // Set default text if no social media links are provided
+        if (socialMediaPrompt === '') {
+          socialMediaPrompt = '[Tidak Tersedia]';
+        } else {
+          socialMediaPrompt = socialMediaPrompt.trim(); // Remove any trailing newline character
         }
 
-        // Function to generate the catalog preview and the AI prompt
-        function generateOutput() {
-            // 1. Get all values from the form
-            const nama = document.getElementById("namaProduk").value;
-            const jenis = document.getElementById("jenisProduk").value;
-            const deskripsi = document.getElementById("deskripsiProduk").value;
-            const harga = document.getElementById("hargaProduk").value;
-            const gambar = document.getElementById("gambarProduk").value;
-            const telp = document.getElementById("nomorTelepon").value;
-            const gmail = document.getElementById("gmail").value;
-            const ig = document.getElementById("instagram").value;
-            const gaya = document.getElementById("gayaVisual").value;
+        // Construct the final prompt string using template literals for readability
+        const hasilPrompt =
+`Saya ingin kamu bertindak sebagai seorang frontend developer profesional yang membuat website katalog produk digital. Website ini harus 
+memiliki desain yang modern, profesional, dan responsif (mobile-first). Gunakan animasi fade-in lembut saat pengguna melakukan scroll, 
+menciptakan pengalaman interaktif yang elegan dan tidak mengganggu fokus.
 
-            const imageUrl = getImageUrl(gambar);
+Website mencakup bagian berikut:
+- Nama Produk: ${namaProduk || '[Nama Produk]'}
+- Jenis Produk: ${jenisProduk || '[Jenis Produk]'}
+- Deskripsi Produk: ${deskripsi || '[Deskripsi Produk]'}
+- Harga Produk: Rp${harga || '[Harga Produk]'}
+- Link Gambar Produk:\n${gambarPrompt}
+- Kontak: ${telepon || '[Nomor Telepon]'} | ${email || '[Email]'}
+- Media Sosial:\n${socialMediaPrompt}
+- Warna Website: ${warnaWeb}, Warna Teks: ${warnaTeks}
+- Gaya Visual Katalog: ${gaya}
 
-            // 2. Define style themes based on selection
-            let theme = {
-                bg: 'bg-white',
-                text: 'text-gray-800',
-                title: 'text-gray-900',
-                accent: 'text-indigo-600',
-                containerClass: ''
-            };
+Pastikan website ini responsif dan dapat diakses dengan baik di berbagai perangkat. Gunakan ikon visual untuk memperkuat tiap bagian seperti ikon produk, harga, dan kontak.`;
 
-            switch (gaya) {
-                case 'Editorial magazine':
-                    theme = { ...theme, containerClass: 'font-serif', title: 'text-4xl font-serif font-bold' };
-                    break;
-                case 'Minimalis modern':
-                    theme = { ...theme, bg: 'bg-gray-50', text: 'text-gray-600', title: 'text-gray-800 font-sans font-semibold' };
-                    break;
-                case 'Playful colorful':
-                    theme = { ...theme, bg: 'bg-yellow-50', text: 'text-pink-800', title: 'text-cyan-600 font-bold', accent: 'text-orange-500' };
-                    break;
-                case 'Dark moody':
-                    theme = { ...theme, bg: 'bg-gray-900', text: 'text-gray-300', title: 'text-white font-serif', accent: 'text-teal-400' };
-                    break;
-                case 'Elegan formal':
-                    theme = { ...theme, bg: 'bg-stone-100', text: 'text-stone-700', title: 'text-stone-900 font-serif tracking-wider', accent: 'text-amber-800' };
-                    break;
-                case 'Lokal / Kultural':
-                    theme = { ...theme, bg: 'bg-amber-50', text: 'text-stone-800', title: 'text-emerald-900 font-bold', accent: 'text-red-700', containerClass: 'border-4 border-emerald-900 p-4' };
-                    break;
-            }
+        // Display the generated prompt in the output textarea
+        outputPromptTextarea.value = hasilPrompt;
+      };
 
-            // 3. Construct the HTML for the preview
-            const previewHtml = `
-                <div class="w-full h-full p-6 md:p-8 rounded-lg overflow-hidden fade-in ${theme.bg} ${theme.text} ${theme.containerClass}">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                        <div class="w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg">
-                            <img src="${imageUrl}" alt="[Gambar dari ${nama}]" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Gambar+Tidak+Valid';">
-                        </div>
-                        <div class="flex flex-col h-full justify-center">
-                            <h3 class="text-sm font-semibold tracking-widest uppercase ${theme.accent}">${jenis}</h3>
-                            <h1 class="text-3xl md:text-4xl font-bold mt-2 ${theme.title}">${nama}</h1>
-                            <p class="mt-4 text-base">${deskripsi}</p>
-                            <p class="mt-6 text-2xl font-bold ${theme.title}">${harga}</p>
-                            <div class="mt-8 pt-6 border-t border-gray-200/50">
-                                <h4 class="font-semibold ${theme.title}">Hubungi Kami:</h4>
-                                <div class="mt-3 space-y-2 text-sm">
-                                    <p><strong>📞 Telepon:</strong> ${telp}</p>
-                                    <p><strong>✉️ Gmail:</strong> ${gmail}</p>
-                                    <p><strong>📷 Instagram:</strong> ${ig}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // 4. Display the preview
-            const previewContainer = document.getElementById('preview-container');
-            previewContainer.innerHTML = previewHtml;
+      /**
+       * Copies the generated prompt text to the clipboard.
+       * Shows a temporary confirmation message box.
+       * This function is made globally accessible for the onclick attribute in HTML.
+       */
+      window.copyPrompt = function () {
+        // Do nothing if the output prompt textarea is empty
+        if (!outputPromptTextarea.value) return;
+        
+        // Select the text within the textarea
+        outputPromptTextarea.select();
+        // Execute the copy command to copy the selected text to the clipboard
+        document.execCommand('copy');
 
-            // 5. Generate and display the AI prompt
-            const promptText = `Saya ingin kamu bertindak sebagai seorang frontend developer profesional yang membuat website digital katalog produk. Website ini harus memiliki desain yang modern, profesional, dan responsif (mobile-first dan desktop). Gunakan animasi fade-in lembut saat pengguna melakukan scroll, menciptakan pengalaman interaktif yang elegan dan tidak mengganggu fokus.
-
-Setiap elemen penting seperti form input, preview hasil digital katalog produk, dan tombol aksi akan muncul secara bertahap dengan transisi yang halus untuk memberikan kesan modern dan profesional.
-
-Website mencakup beberapa bagian utama seperti:
-
-- Nama Produk: ${nama}
-- Jenis Produk: ${jenis}
-- Deskripsi: ${deskripsi}
-- Harga: ${harga}
-- Gambar Produk: ${imageUrl}
-- Kontak:
-  📞 Telepon: ${telp}
-  ✉️ Gmail: ${gmail}
-  📷 Instagram: ${ig}
-
-Gunakan gaya visual katalog: ${gaya}
-
-Desain harus menggabungkan gambar produk, deskripsi singkat, dan tulisan promosi dalam layout landscape & estetik (blok-blok terpisah dengan kombinasi teks dan foto). Tetap dengan desain akhir bergaya editorial-style ala majalah website katalog, namun tema visualnya dipilih oleh pengguna.`;
-            
-            const promptTextarea = document.getElementById('promptOutput');
-            promptTextarea.value = promptText;
-
-            // 6. Enable the copy button
-            document.getElementById('copyButton').disabled = false;
-        }
-
-        // Function to copy the prompt to clipboard
-        function copyPrompt() {
-            const promptTextarea = document.getElementById('promptOutput');
-            promptTextarea.select();
-            promptTextarea.setSelectionRange(0, 99999); // For mobile devices
-
-            try {
-                document.execCommand('copy');
-                const copyButton = document.getElementById('copyButton');
-                copyButton.innerText = 'Disalin!';
-                setTimeout(() => {
-                    copyButton.innerText = 'Salin';
-                }, 2000);
-            } catch (err) {
-                console.error('Gagal menyalin prompt: ', err);
-                // Fallback for environments where execCommand is not supported
-                alert('Gagal menyalin. Silakan salin secara manual.');
-            }
-        }
-    </script>
+        // Show the message box by adding the 'show' class
+        messageBox.classList.add('show');
+        // Hide the message box after 2 seconds by removing the 'show' class
+        setTimeout(() => messageBox.classList.remove('show'), 2000);
+      };
+    });
+  </script>
 </body>
 </html>
