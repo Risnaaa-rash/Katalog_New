@@ -231,6 +231,16 @@
         </div>
 
         <div class="form-group">
+          <label for="namaToko" class="block font-medium text-gray-700 mb-1"><i class="fas fa-store mr-2"></i>Nama Toko:</label>
+          <input type="text" id="namaToko" class="w-full border rounded-md px-4 py-2">
+        </div>
+
+        <div class="form-group">
+          <label for="alamatToko" class="block font-medium text-gray-700 mb-1"><i class="fas fa-map-marker-alt mr-2"></i>Alamat Toko:</label>
+          <textarea id="alamatToko" class="w-full border rounded-md px-4 py-2" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
           <label for="telepon" class="block font-medium text-gray-700 mb-1"><i class="fas fa-phone mr-2"></i>Nomor Telepon:</label>
           <input type="text" id="telepon" class="w-full border rounded-md px-4 py-2">
         </div>
@@ -428,7 +438,8 @@
         const jenisProduk = document.getElementById("jenisProduk").value;
         const deskripsi = document.getElementById("deskripsiProduk").value;
         const harga = document.getElementById("hargaProduk").value;
-        // Removed alamatToko
+        const namaToko = document.getElementById("namaToko").value; // Get namaToko value
+        const alamatToko = document.getElementById("alamatToko").value; // Get alamatToko value
         const telepon = document.getElementById("telepon").value;
         const email = document.getElementById("email").value;
         const warnaWeb = document.getElementById("warnaWeb").value;
@@ -479,6 +490,10 @@ Website mencakup bagian berikut:
 - Deskripsi Produk: ${deskripsi || '[Deskripsi Produk]'}
 - Harga Produk: Rp${harga || '[Harga Produk]'}
 - Link Gambar Produk:\n${gambarPrompt}
+
+**Informasi Toko:**
+- Nama Toko: ${namaToko || '[Nama Toko]'}
+- Alamat Toko: ${alamatToko || '[Alamat Toko]'}
 
 **Informasi Kontak:**
 - Kontak: ${telepon || '[Nomor Telepon]'} | ${email || '[Email]'}
