@@ -214,22 +214,6 @@
           <input type="text" id="hargaProduk" class="w-full border rounded-md px-4 py-2" required>
         </div>
 
-        <!-- Company Profile Section -->
-        <div class="form-group">
-            <label for="namaPerusahaan" class="block font-medium text-gray-700 mb-1"><i class="fas fa-building mr-2"></i>Nama Perusahaan:</label>
-            <input type="text" id="namaPerusahaan" class="w-full border rounded-md px-4 py-2">
-        </div>
-
-        <div class="form-group">
-            <label for="alamatPerusahaan" class="block font-medium text-gray-700 mb-1"><i class="fas fa-map-marker-alt mr-2"></i>Alamat Perusahaan:</label>
-            <input type="text" id="alamatPerusahaan" class="w-full border rounded-md px-4 py-2">
-        </div>
-
-        <div class="form-group">
-            <label for="deskripsiPerusahaan" class="block font-medium text-gray-700 mb-1"><i class="fas fa-info-circle mr-2"></i>Deskripsi Perusahaan:</label>
-            <textarea id="deskripsiPerusahaan" class="w-full border rounded-md px-4 py-2" rows="3"></textarea>
-        </div>
-
         <!-- Dynamic Image Upload Section -->
         <div class="form-group">
           <label class="block font-medium text-gray-700 mb-2">
@@ -242,7 +226,7 @@
             <i class="fas fa-plus mr-1"></i>Tambah Gambar Produk
           </button>
           <p class="text-sm text-gray-500 mt-1">
-            Contoh: <code>https://lh3.googleusercontent.com/d/FILE_ID</code> (otomatis dikonversi)
+            Contoh: <code>https://drive.google.com/file/d/FILE_ID/view</code> (otomatis dikonversi)
           </p>
         </div>
 
@@ -430,9 +414,8 @@
       // Add an initial image input row when the page loads
       addImageInput();
 
-      // Event listener for adding more social media inputs
+      // Event listeners for adding new input fields
       addSocialMediaBtn.addEventListener('click', addSocialMediaInput);
-      // Event listener for adding more image inputs
       addImageBtn.addEventListener('click', addImageInput);
 
       /**
@@ -445,9 +428,7 @@
         const jenisProduk = document.getElementById("jenisProduk").value;
         const deskripsi = document.getElementById("deskripsiProduk").value;
         const harga = document.getElementById("hargaProduk").value;
-        const namaPerusahaan = document.getElementById("namaPerusahaan").value;
-        const alamatPerusahaan = document.getElementById("alamatPerusahaan").value;
-        const deskripsiPerusahaan = document.getElementById("deskripsiPerusahaan").value;
+        // Removed alamatToko
         const telepon = document.getElementById("telepon").value;
         const email = document.getElementById("email").value;
         const warnaWeb = document.getElementById("warnaWeb").value;
@@ -491,11 +472,6 @@ memiliki desain yang modern, profesional, dan responsif (mobile-first). Gunakan 
 menciptakan pengalaman interaktif yang elegan dan tidak mengganggu fokus.
 
 Website mencakup bagian berikut:
-
-**Profil Perusahaan:**
-- Nama Perusahaan: ${namaPerusahaan || '[Nama Perusahaan]'}
-- Alamat: ${alamatPerusahaan || '[Alamat Perusahaan]'}
-- Deskripsi Singkat: ${deskripsiPerusahaan || '[Deskripsi Perusahaan]'}
 
 **Detail Produk:**
 - Nama Produk: ${namaProduk || '[Nama Produk]'}
