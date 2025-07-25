@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Generator Katalog Produk</title>
+  <title>Katalogly - AI Generator Katalog Produk</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
@@ -180,9 +180,15 @@
   <div class="main-layout-container">
     <!-- Main Content Container -->
     <div class="max-w-3xl w-full mx-auto p-6 rounded-xl shadow-xl space-y-8 sm:space-y-10 z-10 relative bg-gradient-to-r from-blue-200 to-purple-300">
-      <h2 class="text-3xl font-extrabold text-gray-800 mb-4 text-center">AI Generator Katalog Produk</h2>
+      
+      <!-- New Header with Logo -->
+      <div class="flex items-center justify-center mb-4">
+        <img src="https://lh3.googleusercontent.com/d/15C6fkLibYHKmTBKmBpi40L8jW5ggbTrN" alt="Katalogly Logo" class="h-12 w-12 mr-3">
+        <h2 class="text-3xl font-extrabold text-gray-800">Katalogly</h2>
+      </div>
+
       <p class="text-gray-700 text-center mb-6">
-        Buat katalog yang Anda inginkan dengan mudah melalui prompt AI Generator.
+        Buat katalog produk yang Anda inginkan dengan mudah bersama Katalogly.
       </p>
 
       <!-- Form Section -->
@@ -206,6 +212,22 @@
         <div class="form-group">
           <label for="hargaProduk" class="block font-medium text-gray-700 mb-1"><i class="fas fa-dollar-sign mr-2"></i>Harga Produk:</label>
           <input type="text" id="hargaProduk" class="w-full border rounded-md px-4 py-2" required>
+        </div>
+
+        <!-- Company Profile Section -->
+        <div class="form-group">
+            <label for="namaPerusahaan" class="block font-medium text-gray-700 mb-1"><i class="fas fa-building mr-2"></i>Nama Perusahaan:</label>
+            <input type="text" id="namaPerusahaan" class="w-full border rounded-md px-4 py-2">
+        </div>
+
+        <div class="form-group">
+            <label for="alamatPerusahaan" class="block font-medium text-gray-700 mb-1"><i class="fas fa-map-marker-alt mr-2"></i>Alamat Perusahaan:</label>
+            <input type="text" id="alamatPerusahaan" class="w-full border rounded-md px-4 py-2">
+        </div>
+
+        <div class="form-group">
+            <label for="deskripsiPerusahaan" class="block font-medium text-gray-700 mb-1"><i class="fas fa-info-circle mr-2"></i>Deskripsi Perusahaan:</label>
+            <textarea id="deskripsiPerusahaan" class="w-full border rounded-md px-4 py-2" rows="3"></textarea>
         </div>
 
         <!-- Dynamic Image Upload Section -->
@@ -423,6 +445,9 @@
         const jenisProduk = document.getElementById("jenisProduk").value;
         const deskripsi = document.getElementById("deskripsiProduk").value;
         const harga = document.getElementById("hargaProduk").value;
+        const namaPerusahaan = document.getElementById("namaPerusahaan").value;
+        const alamatPerusahaan = document.getElementById("alamatPerusahaan").value;
+        const deskripsiPerusahaan = document.getElementById("deskripsiPerusahaan").value;
         const telepon = document.getElementById("telepon").value;
         const email = document.getElementById("email").value;
         const warnaWeb = document.getElementById("warnaWeb").value;
@@ -466,14 +491,26 @@ memiliki desain yang modern, profesional, dan responsif (mobile-first). Gunakan 
 menciptakan pengalaman interaktif yang elegan dan tidak mengganggu fokus.
 
 Website mencakup bagian berikut:
+
+**Profil Perusahaan:**
+- Nama Perusahaan: ${namaPerusahaan || '[Nama Perusahaan]'}
+- Alamat: ${alamatPerusahaan || '[Alamat Perusahaan]'}
+- Deskripsi Singkat: ${deskripsiPerusahaan || '[Deskripsi Perusahaan]'}
+
+**Detail Produk:**
 - Nama Produk: ${namaProduk || '[Nama Produk]'}
 - Jenis Produk: ${jenisProduk || '[Jenis Produk]'}
 - Deskripsi Produk: ${deskripsi || '[Deskripsi Produk]'}
 - Harga Produk: Rp${harga || '[Harga Produk]'}
 - Link Gambar Produk:\n${gambarPrompt}
+
+**Informasi Kontak:**
 - Kontak: ${telepon || '[Nomor Telepon]'} | ${email || '[Email]'}
 - Media Sosial:\n${socialMediaPrompt}
-- Warna Website: ${warnaWeb}, Warna Teks: ${warnaTeks}
+
+**Preferensi Desain:**
+- Warna Website: ${warnaWeb}
+- Warna Teks: ${warnaTeks}
 - Gaya Visual Katalog: ${gaya}
 
 Pastikan website ini responsif dan dapat diakses dengan baik di berbagai perangkat. Gunakan ikon visual untuk memperkuat tiap bagian seperti ikon produk, harga, dan kontak.`;
